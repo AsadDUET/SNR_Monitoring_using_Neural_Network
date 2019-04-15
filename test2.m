@@ -5,10 +5,10 @@
 %% Prepare data
 % load('quam16_10-80_1e5_1000.mat')
 indices = find(abs(SNR)>1);
-MMs= MM(indices);
-M16ss =M16s(indices);
+MMni= MMn(indices);
+M8sni =M8sn(indices);
 % x = {M2s;M4s;M8s;M10s;M12s;M14s;M16s;M64s};
-x = {MMs;M16ss};                                        % <<<<
+x = {MMni;M8sni};                                        % <<<<
 t = SNR(indices);
 
 %% Prepare Network
@@ -25,7 +25,7 @@ net = train(net,x,t);
 
 %% Test and plot
 view(net)
-predictnn = net([MMs;M16ss]);                          % <<<<
+predictnn = net([MMni;M8sni]);                          % <<<<
 
 figure(2)
 subplot(2,2,1)

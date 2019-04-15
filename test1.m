@@ -19,18 +19,12 @@ SNR = EbNo+10*log10(log2(M));
 fprintf('Adding Noise\n')
 sn=ones(N,snr_sample);
 M2s = ones(1,snr_sample);
-M4s = ones(1,snr_sample);
-M6s = ones(1,snr_sample);
 M8s = ones(1,snr_sample);
-M16s = ones(1,snr_sample);
 MM = ones(1,snr_sample);
 for n=1:length(EbNo)
     sn(:,n)=awgn(s,SNR(n),'measured');
     M2s(n) = mean(abs(sn(:,n)).^2);
-    M4s(n) = mean(abs(sn(:,n)).^4);
-    M6s(n) = mean(abs(sn(:,n)).^6);
     M8s(n) = mean(abs(sn(:,n)).^8);
-    M16s(n) = mean(abs(sn(:,n)).^16);
 %      d=pskdemod(sn,M);
 %     [N_err,ber(n)] = biterr(m,d);
 end
@@ -40,12 +34,9 @@ for n=1:length(EbNo)
     MM(n) =(4/area);
 end
 fprintf('Normalizing\n')
-MM=normalize(MM);
-M2s=normalize(M2s);
-M4s=normalize(M2s);
-M6s=normalize(M2s);
-M8s=normalize(M2s);
-M16s=normalize(M2s);
+MMn=normalize(MM);
+M2sn=normalize(M2s);
+M8sn=normalize(M8s);
 %%
 % plot(M4s )
 % hold on
@@ -55,6 +46,6 @@ M16s=normalize(M2s);
 % legend('M4','M2','SNR','Location','northwest')
 % hold off
 %semilogy(SNR,ber)
-save('quam16_10-80_2e5_2000_normalized.mat','-v7.3')
+save('quam16_10-80_2e5_2000_normalized_only_M2s_M8s_MM.mat','-v7.3')
 fprintf('Done\n')
 
